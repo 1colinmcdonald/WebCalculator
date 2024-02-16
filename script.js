@@ -14,4 +14,8 @@ function divide(a, b) {
   return a / b;
 }
 
+let operand1;
+let operator;
+let operand2;
+
 console.log(divide(5, 0));
