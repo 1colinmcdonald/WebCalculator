@@ -26,13 +26,34 @@ function operate(operator, operand1, operand2) {
       return divide(operand1, operand2);
   }
 }
+let displayContent = document.querySelector("#displayContent");
+function clear() {
+  displayContent.textContent = "";
+}
+
+let AC = document.querySelector("#AC");
+AC.addEventListener("click", clear);
+
+let calculator = document.querySelector("#calculator");
+
+calculator.addEventListener(
+  "click",
+  (e) => {
+    if (
+      !isNaN(e.target.textContent) &&
+      displayContent.textContent.length < 10
+    ) {
+      displayContent.textContent += e.target.textContent;
+    }
+  }
+  // function (e) {
+  //   console.log("hi");
+  //   // if (displayContent.textContent.length < 10) {
+  //   //   console.log(e.target.textContent);
+  //   //   displayContent.textContent += e.target.textContent;
+  // }
+);
 
 let operand1;
 let operator;
 let operand2;
-
-console.log(divide(5, 0));
-console.log(operate("+", 6, 4));
-console.log(operate("*", 6, 4));
-console.log(operate("/", 6, 4));
-console.log(operate("-", 6, 4));

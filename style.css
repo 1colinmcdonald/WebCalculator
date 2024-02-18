@@ -2,13 +2,13 @@ button {
   width: 100px;
   height: 80px;
   font-size: 50px;
-  flex: 1;
+  flex-grow: 0px;
   padding: 0;
   margin: 0;
 }
 
 button.doubleWidth {
-  flex-grow: 2.059;
+  width: 202px;
   margin: 0;
 }
 
@@ -19,13 +19,16 @@ button.doubleWidth {
 }
 
 #calculator {
-  height: 400px;
-  width: 400px;
   display: flex;
   flex-direction: column;
-  margin-top: 100px;
   justify-content: space-around;
   gap: 2px;
+  border-style: solid;
+  padding: 2px;
+  background-color: black;
+  border-radius: 3px;
+  font-family: Arial, Helvetica, sans-serif;
+  flex-grow: 0;
 }
 
 body {
@@ -33,9 +36,23 @@ body {
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  margin-top: 100px;
 }
 
 #display {
   border-color: black;
   border-style: solid;
+  height: 80px;
+  flex-shrink: 0;
+  background-color: white;
+  font-size: 70px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 2px;
+  flex-grow: 0;
+}
+
+#displayContent {
+  margin-right: 4px;
 }
