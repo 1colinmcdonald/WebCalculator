@@ -1,3 +1,7 @@
+let operand1 = null;
+let operator = null;
+let operand2 = null;
+
 function add(a, b) {
   return a + b;
 }
@@ -15,16 +19,24 @@ function divide(a, b) {
 }
 
 function operate(operator, operand1, operand2) {
+  operand1 = Number(operand1);
+  operand2 = Number(operand2);
+  let result = null;
   switch (operator) {
     case "+":
-      return add(operand1, operand2);
+      result = add(operand1, operand2);
+      break;
     case "-":
-      return subtract(operand1, operand2);
+      result = subtract(operand1, operand2);
+      break;
     case "*":
-      return multiply(operand1, operand2);
+      result = multiply(operand1, operand2);
+      break;
     case "/":
-      return divide(operand1, operand2);
+      result = divide(operand1, operand2);
+      break;
   }
+  return result;
 }
 let displayContent = document.querySelector("#displayContent");
 function clear() {
@@ -36,24 +48,37 @@ AC.addEventListener("click", clear);
 
 let calculator = document.querySelector("#calculator");
 
-calculator.addEventListener(
-  "click",
-  (e) => {
-    if (
-      !isNaN(e.target.textContent) &&
-      displayContent.textContent.length < 10
-    ) {
-      displayContent.textContent += e.target.textContent;
+calculator.addEventListener("click", (e) => {
+  let input = e.target.textContent;
+  if (!isNaN(input) && displayContent.textContent.length < 10) {
+    if (operator === null) {
+      displayContent.textContent += input;
+    } else {
+      if (operand2 === null) {
+        displayContent.textContent = input;
+      } else {
+        displayContent.textContent += input;
+      }
+      operand2 = displayContent.textContent;
     }
+  } else if (e.target.className === "binaryOperator") {
+    if (operand2 !== null) {
+      displayContent.textContent = operate(operator, operand1, operand2);
+    }
+    operator = input;
+    operand1 = displayContent.textContent;
+    operand2 = null;
+  } else if (input === "=") {
+    console.log("hi");
+    console.log(operate(operator, operand1, operand2));
+    displayContent.textContent = operate(operator, operand1, operand2);
+    operator = null;
+    operand1 = displayContent.textContent;
   }
-  // function (e) {
-  //   console.log("hi");
-  //   // if (displayContent.textContent.length < 10) {
-  //   //   console.log(e.target.textContent);
-  //   //   displayContent.textContent += e.target.textContent;
-  // }
-);
-
-let operand1;
-let operator;
-let operand2;
+  console.log(
+    "operand1: %s\noperator: %s\noperand2: %s\n\n",
+    operand1,
+    operator,
+    operand2
+  );
+});
