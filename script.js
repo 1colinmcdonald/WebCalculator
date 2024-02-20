@@ -1,4 +1,5 @@
-let operand1 = null;
+let displayContent = document.querySelector("#displayContent");
+let operand1 = displayContent.textContent;
 let operator = null;
 let operand2 = null;
 
@@ -19,6 +20,7 @@ function divide(a, b) {
 }
 
 function operate(operator, operand1, operand2) {
+  if (operand2 == null) return operand1;
   operand1 = Number(operand1);
   operand2 = Number(operand2);
   let result = null;
@@ -36,11 +38,14 @@ function operate(operator, operand1, operand2) {
       result = divide(operand1, operand2);
       break;
   }
-  return result;
+  if (result === null) return "0";
+  return result.toString().slice(0, 10);
 }
-let displayContent = document.querySelector("#displayContent");
+
 function clear() {
-  displayContent.textContent = "";
+  displayContent.textContent = "0";
+  operand1 = displayContent.textContent;
+  operand2 = null;
 }
 
 let AC = document.querySelector("#AC");
@@ -52,11 +57,16 @@ calculator.addEventListener("click", (e) => {
   let input = e.target.textContent;
   if (!isNaN(input) && displayContent.textContent.length < 10) {
     if (operator === null) {
-      displayContent.textContent += input;
+      if (operand1 === "0") {
+        displayContent.textContent = input;
+      } else {
+        displayContent.textContent += input;
+      }
+      operand1 = displayContent.textContent;
     } else {
       if (operand2 === null) {
         displayContent.textContent = input;
-      } else {
+      } else if (operand2 !== "0") {
         displayContent.textContent += input;
       }
       operand2 = displayContent.textContent;
@@ -65,15 +75,16 @@ calculator.addEventListener("click", (e) => {
     if (operand2 !== null) {
       displayContent.textContent = operate(operator, operand1, operand2);
     }
-    operator = input;
     operand1 = displayContent.textContent;
     operand2 = null;
+    operator = input;
   } else if (input === "=") {
     console.log("hi");
     console.log(operate(operator, operand1, operand2));
     displayContent.textContent = operate(operator, operand1, operand2);
     operator = null;
     operand1 = displayContent.textContent;
+    operand2 = null;
   }
   console.log(
     "operand1: %s\noperator: %s\noperand2: %s\n\n",
