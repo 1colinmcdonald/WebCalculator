@@ -45,6 +45,7 @@ function operate(operator, operand1, operand2) {
 function clear() {
   displayContent.textContent = "0";
   operand1 = displayContent.textContent;
+  operator = null;
   operand2 = null;
 }
 

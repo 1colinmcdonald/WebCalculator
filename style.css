@@ -56,3 +56,28 @@ body {
 #displayContent {
   margin-right: 4px;
 }
+
+.binaryOperator {
+  background-color: orange;
+}
+
+.number {
+  background-color: lightblue;
+}
+
+#equals {
+  background-color: lightgreen;
+}
+
+#AC {
+  background-color: pink;
+}
+
+#negative,
+#percent {
+  background-color: tan;
+}
+
+#decimal {
+  background-color: lightcyan;
+}
