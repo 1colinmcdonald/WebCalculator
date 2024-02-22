@@ -39,7 +39,8 @@ function operate(operator, operand1, operand2) {
       break;
   }
   if (result === null) return "0";
-  return result.toString().slice(0, 10);
+  if (result === Infinity) return "div by 0 err";
+  return result.toString().slice(0, 9);
 }
 
 function clear() {
@@ -56,18 +57,18 @@ let calculator = document.querySelector("#calculator");
 
 calculator.addEventListener("click", (e) => {
   let input = e.target.textContent;
-  if (!isNaN(input) && displayContent.textContent.length < 10) {
+  if (!isNaN(input)) {
     if (operator === null) {
       if (operand1 === "0") {
         displayContent.textContent = input;
-      } else {
+      } else if (displayContent.textContent.length < 9) {
         displayContent.textContent += input;
       }
       operand1 = displayContent.textContent;
     } else {
       if (operand2 === null) {
         displayContent.textContent = input;
-      } else if (operand2 !== "0") {
+      } else if (operand2 !== "0" && displayContent.textContent.length < 9) {
         displayContent.textContent += input;
       }
       operand2 = displayContent.textContent;
@@ -80,17 +81,11 @@ calculator.addEventListener("click", (e) => {
     operand2 = null;
     operator = input;
   } else if (input === "=") {
-    console.log("hi");
-    console.log(operate(operator, operand1, operand2));
     displayContent.textContent = operate(operator, operand1, operand2);
     operator = null;
     operand1 = displayContent.textContent;
     operand2 = null;
+  } else if (input === "." && !displayContent.textContent.includes(".")) {
+    displayContent.textContent += input;
   }
-  console.log(
-    "operand1: %s\noperator: %s\noperand2: %s\n\n",
-    operand1,
-    operator,
-    operand2
-  );
 });
