@@ -16,6 +16,9 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
+  if (b === 0) {
+    return "div by 0 err";
+  }
   return a / b;
 }
 
@@ -39,7 +42,6 @@ function operate(operator, operand1, operand2) {
       break;
   }
   if (result === null) return "0";
-  if (result === Infinity) return "div by 0 err";
   return result.toString().slice(0, 9);
 }
 
@@ -50,16 +52,23 @@ function clear() {
   operand2 = null;
 }
 
-let AC = document.querySelector("#AC");
+let AC = document.querySelector(".clear");
 AC.addEventListener("click", clear);
 
 let calculator = document.querySelector("#calculator");
+calculator.addEventListener("mouseover", (e) => {
+  if (e.target.tagName === "BUTTON") e.target.classList.add("highlighted");
+});
+
+calculator.addEventListener("mouseout", (e) => {
+  e.target.classList.remove("highlighted");
+});
 
 calculator.addEventListener("click", (e) => {
   let input = e.target.textContent;
-  if (!isNaN(input)) {
+  if (e.target.classList.contains("data")) {
     if (operator === null) {
-      if (operand1 === "0") {
+      if (operand1 === "0" && !isNaN(input)) {
         displayContent.textContent = input;
       } else if (displayContent.textContent.length < 9) {
         displayContent.textContent += input;
@@ -73,7 +82,7 @@ calculator.addEventListener("click", (e) => {
       }
       operand2 = displayContent.textContent;
     }
-  } else if (e.target.className === "binaryOperator") {
+  } else if (e.target.classList.contains("binaryOperator")) {
     if (operand2 !== null) {
       displayContent.textContent = operate(operator, operand1, operand2);
     }
@@ -85,7 +94,5 @@ calculator.addEventListener("click", (e) => {
     operator = null;
     operand1 = displayContent.textContent;
     operand2 = null;
-  } else if (input === "." && !displayContent.textContent.includes(".")) {
-    displayContent.textContent += input;
   }
 });
