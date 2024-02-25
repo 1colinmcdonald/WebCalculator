@@ -94,5 +94,21 @@ calculator.addEventListener("click", (e) => {
     operator = null;
     operand1 = displayContent.textContent;
     operand2 = null;
+  } else if (input === "D") {
+    if (operator !== null && operand2 !== null) {
+      displayContent.textContent = displayContent.textContent.slice(0, -1);
+      if (displayContent.textContent === "") {
+        displayContent.textContent = "0";
+      }
+      operand2 = displayContent.textContent;
+    }
+    if (operator == null) {
+      displayContent.textContent = displayContent.textContent.slice(0, -1);
+      if (displayContent.textContent === "") {
+        displayContent.textContent = "0";
+      }
+      operand1 = displayContent.textContent;
+    }
+    console.log("hi");
   }
 });
