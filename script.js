@@ -66,7 +66,15 @@ calculator.addEventListener("mouseout", (e) => {
 
 calculator.addEventListener("click", (e) => {
   let input = e.target.textContent;
-  if (e.target.classList.contains("data")) {
+  handleInput(input);
+});
+
+calculator.addEventListener("keydown", (e) => {
+  handleInput(e.key);
+});
+
+function handleInput(input) {
+  if (!isNaN(input) || input === ".") {
     if (operator === null) {
       if (operand1 === "0" && !isNaN(input)) {
         displayContent.textContent = input;
@@ -82,7 +90,7 @@ calculator.addEventListener("click", (e) => {
       }
       operand2 = displayContent.textContent;
     }
-  } else if (e.target.classList.contains("binaryOperator")) {
+  } else if (input === "/" || input === "*" || input === "-" || input === "+") {
     if (operand2 !== null) {
       displayContent.textContent = operate(operator, operand1, operand2);
     }
@@ -109,6 +117,5 @@ calculator.addEventListener("click", (e) => {
       }
       operand1 = displayContent.textContent;
     }
-    console.log("hi");
   }
-});
+}
