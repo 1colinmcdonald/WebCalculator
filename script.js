@@ -69,8 +69,29 @@ calculator.addEventListener("click", (e) => {
   handleInput(input);
 });
 
-calculator.addEventListener("keydown", (e) => {
-  handleInput(e.key);
+window.addEventListener("keydown", (e) => {
+  input = e.key;
+  switch (input) {
+    case "c":
+      input = "AC";
+      break;
+    case "C":
+      input = "AC";
+      break;
+    case "d":
+      input = "D";
+      break;
+    case "Backspace":
+      input = "D";
+      break;
+    case "Delete":
+      input = "D";
+      break;
+    case "Enter":
+      input = "=";
+      break;
+  }
+  handleInput(input);
 });
 
 function handleInput(input) {
@@ -91,6 +112,17 @@ function handleInput(input) {
       operand2 = displayContent.textContent;
     }
   } else if (input === "/" || input === "*" || input === "-" || input === "+") {
+    console.log(input);
+    let button = "";
+    switch (input) {
+      case "/":
+        button = "divide";
+        break;
+      case "*":
+        button = "multiply";
+        break;
+    }
+
     if (operand2 !== null) {
       displayContent.textContent = operate(operator, operand1, operand2);
     }
@@ -117,5 +149,7 @@ function handleInput(input) {
       }
       operand1 = displayContent.textContent;
     }
+  } else if (input === "AC") {
+    clear();
   }
 }
