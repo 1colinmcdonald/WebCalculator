@@ -22,7 +22,6 @@ function divide(a, b) {
 
 function operate() {
   clearSelectedOperator();
-  printInfo();
   if (info.operand1 === null) info.operand1 = displayContent.textContent;
   if (info.operand2 === null) return info.operand1;
   workingOperand1 = Number(info.operand1);
@@ -47,7 +46,6 @@ function operate() {
   info.operator = null;
 
   if (result === null) return "0";
-  printInfo();
   return result.toString().slice(0, 9);
 }
 
@@ -101,8 +99,6 @@ window.addEventListener("keydown", (e) => {
     "+": "+",
   };
   let input = options[e.key];
-  console.log("handling input:");
-  printInfo();
   handleInput(options[e.key]);
 });
 
@@ -143,7 +139,6 @@ function handleEquals() {
 }
 
 function handleOperator(input) {
-  console.log(input);
   let button = "";
   switch (input) {
     case "/":
@@ -177,8 +172,6 @@ function clearSelectedOperator() {
 }
 
 function handleData(input) {
-  console.log("handling data:");
-  printInfo();
 
   if (info.operator === null) {
     if (info.operand1 === null && !isNaN(input)) {
