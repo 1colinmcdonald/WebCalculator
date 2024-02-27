@@ -187,6 +187,7 @@ function handleData(input) {
     info.operand1 = displayContent.textContent;
   } else {
     if (info.operand2 === null) {
+      info.operand1 = displayContent.textContent;
       displayContent.textContent = input;
     } else if (info.operand2 !== "0" && displayContent.textContent.length < 9) {
       displayContent.textContent += input;
