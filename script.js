@@ -120,14 +120,16 @@ function handleInput(input) {
   }
 }
 function handleDelete() {
-  if (info.operator !== null && info.operand2 !== null) {
+  if (info.operator !== null && info.operand2 === null) {
+    info.operator = null;
+    clearSelectedOperator();
+  } else if (info.operator !== null && info.operand2 !== null) {
     displayContent.textContent = displayContent.textContent.slice(0, -1);
     if (displayContent.textContent === "") {
       displayContent.textContent = "0";
     }
     info.operand2 = displayContent.textContent;
-  }
-  if (info.operator == null) {
+  } else if (info.operator == null) {
     displayContent.textContent = displayContent.textContent.slice(0, -1);
     if (displayContent.textContent === "") {
       displayContent.textContent = "0";
