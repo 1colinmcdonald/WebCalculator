@@ -125,16 +125,16 @@ function handleDelete() {
     clearSelectedOperator();
   } else if (info.operator !== null && info.operand2 !== null) {
     displayContent.textContent = displayContent.textContent.slice(0, -1);
-    if (displayContent.textContent === "") {
+    if (displayContent.textContent === ("" || "-")) {
       displayContent.textContent = "0";
-    }
-    info.operand2 = displayContent.textContent;
-  } else if (info.operator == null) {
+      info.operand2 = null;
+    } else info.operand2 = displayContent.textContent;
+  } else if (info.operator == null && info.operand1 !== null) {
     displayContent.textContent = displayContent.textContent.slice(0, -1);
-    if (displayContent.textContent === "") {
+    if (displayContent.textContent === ("" || "-")) {
       displayContent.textContent = "0";
-    }
-    info.operand1 = displayContent.textContent;
+      info.operand1 = null;
+    } else info.operand1 = displayContent.textContent;
   }
 }
 
