@@ -158,12 +158,12 @@ function handleOperator(input) {
       break;
   }
 
-  let selected = document.querySelector("." + button);
   clearSelectedOperator();
-  selected.style.backgroundColor = "rgb(102, 0, 51)";
   if (info.operand2 !== null) {
     displayContent.textContent = operate();
   }
+  let selected = document.querySelector("." + button);
+  selected.style.backgroundColor = "rgb(102, 0, 51)";
   info.operator = input;
 }
 
