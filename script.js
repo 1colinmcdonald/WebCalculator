@@ -23,8 +23,8 @@ function divide(a, b) {
 function operate() {
   clearSelectedOperator();
   printInfo();
-  if (info.operand2 === null) return info.operand1;
   if (info.operand1 === null) info.operand1 = displayContent.textContent;
+  if (info.operand2 === null) return info.operand1;
   workingOperand1 = Number(info.operand1);
   workingOperand2 = Number(info.operand2);
   let result = null;
