@@ -1,5 +1,6 @@
 let displayContent = document.querySelector("#displayContent");
 let info = { operand1: null, operand2: null, operator: null };
+const screenSize = 9;
 
 function add(a, b) {
   return a + b;
@@ -46,7 +47,8 @@ function operate() {
   info.operator = null;
 
   if (result === null) return "0";
-  return result.toString().slice(0, 9);
+  result = makeFitScreenSize(result);
+  return result.toString();
 }
 
 function handleClear() {
@@ -83,6 +85,7 @@ window.addEventListener("keydown", (e) => {
     7: "7",
     8: "8",
     9: "9",
+    ".": ".",
     c: "AC",
     C: "AC",
     a: "AC",
@@ -123,7 +126,8 @@ function handleDelete() {
     displayContent.textContent = displayContent.textContent.slice(0, -1);
     if (
       displayContent.textContent === "" ||
-      displayContent.textContent === "-"
+      displayContent.textContent === "-" ||
+      displayContent.textContent === "0"
     ) {
       displayContent.textContent = "0";
       info.operand2 = null;
@@ -132,7 +136,8 @@ function handleDelete() {
     displayContent.textContent = displayContent.textContent.slice(0, -1);
     if (
       displayContent.textContent === "" ||
-      displayContent.textContent === "-"
+      displayContent.textContent === "-" ||
+      displayContent.textContent === "0"
     ) {
       displayContent.textContent = "0";
       info.operand1 = null;
@@ -179,7 +184,11 @@ function clearSelectedOperator() {
 
 function handleData(input) {
   if (info.operator === null) {
-    if (info.operand1 === null && !isNaN(input)) {
+    if (info.operand1 === null) {
+      if (input === ".") {
+        console.log("hi");
+        input = "0" + input;
+      }
       displayContent.textContent = input;
     } else if (displayContent.textContent.length < 9) {
       displayContent.textContent += input;
@@ -199,4 +208,28 @@ function printInfo() {
   console.log("operand1: " + info.operand1);
   console.log("operand2: " + info.operand2);
   console.log("operator: " + info.operator);
+}
+
+function makeFitScreenSize(number) {
+  if (number.toString().length > screenSize) {
+    number = number.toExponential();
+    console.log(number);
+    let i = 0;
+    while (number.toString().length > screenSize && i < screenSize) {
+      console.log(number);
+      number = Number(number);
+      number = Number(number.toExponential()).toFixed(screenSize - i);
+      number = number.toExponential();
+      i += 1;
+    }
+    return number.toExponential();
+  }
+  let i = 0;
+  while (number.toString().length > screenSize && i < screenSize) {
+    console.log(number);
+    number = Number(number);
+    number = number.toFixed(screenSize - i);
+    i += 1;
+  }
+  return number;
 }
