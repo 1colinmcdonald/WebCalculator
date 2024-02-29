@@ -189,11 +189,15 @@ function handleData(input) {
         console.log("hi");
         input = "0" + input;
       }
-      displayContent.textContent = input;
+      if (input !== "0") {
+        displayContent.textContent = input;
+      }
     } else if (displayContent.textContent.length < 9) {
       displayContent.textContent += input;
     }
-    info.operand1 = displayContent.textContent;
+    if (displayContent.textContent !== "0") {
+      info.operand1 = displayContent.textContent;
+    }
   } else {
     if (info.operand2 === null) {
       info.operand1 = displayContent.textContent;
