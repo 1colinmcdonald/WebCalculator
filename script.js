@@ -25,7 +25,7 @@ function operate() {
   if (info.operand1 === null) info.operand1 = displayContent.textContent;
   if (info.operand2 === null) {
     info.operand1 = null;
-    return displayContent.textContent;
+    return Number(displayContent.textContent).toString();
   }
   workingOperand1 = Number(info.operand1);
   workingOperand2 = Number(info.operand2);
