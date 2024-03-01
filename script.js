@@ -16,7 +16,7 @@ function multiply(a, b) {
 
 function divide(a, b) {
   if (b === 0) {
-    return "div by 0 err";
+    return "div by 0";
   }
   return a / b;
 }
@@ -47,9 +47,10 @@ function operate() {
   info.operand1 = null;
   info.operand2 = null;
   info.operator = null;
-
   if (result === null) return "0";
-  result = makeFitScreenSize(result);
+  if (!isNaN(result)) {
+    result = makeFitScreenSize(result);
+  }
   clearSelectedOperator();
   return result.toString();
 }
@@ -189,13 +190,15 @@ function handleData(input) {
   if (info.operator === null) {
     if (info.operand1 === null) {
       if (input === ".") {
-        console.log("hi");
         input = "0" + input;
       }
-      if (input !== "0") {
-        displayContent.textContent = input;
-      }
-    } else if (displayContent.textContent.length < 9) {
+      displayContent.textContent = input;
+    } else if (
+      ((input === "." && !displayContent.textContent.includes(".")) ||
+        !isNaN(input)) &&
+      displayContent.textContent !== "0" &&
+      displayContent.textContent.length < 9
+    ) {
       displayContent.textContent += input;
     }
     if (displayContent.textContent !== "0") {
@@ -205,20 +208,19 @@ function handleData(input) {
     if (info.operand2 === null) {
       info.operand1 = displayContent.textContent;
       displayContent.textContent = input;
-    } else if (info.operand2 !== "0" && displayContent.textContent.length < 9) {
+    } else if (
+      ((input === "." && !displayContent.textContent.includes(".")) ||
+        !isNaN(input)) &&
+      info.operand2 !== "0" &&
+      displayContent.textContent.length < 9
+    ) {
       displayContent.textContent += input;
     }
     info.operand2 = displayContent.textContent;
   }
 }
-function printInfo() {
-  console.log("operand1: " + info.operand1);
-  console.log("operand2: " + info.operand2);
-  console.log("operator: " + info.operator);
-}
 
 function makeFitScreenSize(number) {
-  console.log(number);
   let shortener = 1;
   if (number < 0) {
     shortener++;
