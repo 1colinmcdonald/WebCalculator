@@ -226,9 +226,9 @@ function makeFitScreenSize(number) {
   if (Math.abs(number) < 1) {
     shortener++;
   }
-  if (Math.abs(number) > 99999999) {
-    shortener = 5;
+  if (Math.abs(number) >= 100000000) {
     number = number.toExponential();
+    shortener += number.length - number.indexOf("+") + 1;
     if (number.length > screenSize) {
       number = Number(number).toPrecision(screenSize - shortener);
     }
