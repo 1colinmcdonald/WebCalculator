@@ -22,9 +22,11 @@ function divide(a, b) {
 }
 
 function operate() {
-  clearSelectedOperator();
   if (info.operand1 === null) info.operand1 = displayContent.textContent;
-  if (info.operand2 === null) return info.operand1;
+  if (info.operand2 === null) {
+    info.operand1 = null;
+    return displayContent.textContent;
+  }
   workingOperand1 = Number(info.operand1);
   workingOperand2 = Number(info.operand2);
   let result = null;
@@ -48,6 +50,7 @@ function operate() {
 
   if (result === null) return "0";
   result = makeFitScreenSize(result);
+  clearSelectedOperator();
   return result.toString();
 }
 
@@ -215,25 +218,23 @@ function printInfo() {
 }
 
 function makeFitScreenSize(number) {
-  if (number.toString().length > screenSize) {
+  console.log(number);
+  let shortener = 1;
+  if (number < 0) {
+    shortener++;
+  }
+  if (Math.abs(number) < 1) {
+    shortener++;
+  }
+  if (Math.abs(number) > 99999999) {
+    shortener = 5;
     number = number.toExponential();
-    console.log(number);
-    let i = 0;
-    while (number.toString().length > screenSize && i < screenSize) {
-      console.log(number);
-      number = Number(number);
-      number = Number(number.toExponential()).toFixed(screenSize - i);
-      number = number.toExponential();
-      i += 1;
+    if (number.length > screenSize) {
+      number = Number(number).toPrecision(screenSize - shortener);
     }
-    return number.toExponential();
+    return Number(number).toExponential();
+  } else {
+    number = number.toPrecision(screenSize - shortener);
   }
-  let i = 0;
-  while (number.toString().length > screenSize && i < screenSize) {
-    console.log(number);
-    number = Number(number);
-    number = number.toFixed(screenSize - i);
-    i += 1;
-  }
-  return number;
+  return Number(number.toString());
 }
